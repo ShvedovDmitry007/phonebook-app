@@ -24,8 +24,44 @@ const data = [
 ];
 
 {
+  const getStorage = (key) => {
+    const data = localStorage.getItem(key);
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return [];
+    }
+  };
+
+  const setStorage = (key, obj) => {
+    let currentData = getStorage(key);
+
+    if (currentData.length) {
+      currentData.push(obj);
+    } else {
+      currentData = [obj];
+    }
+
+    localStorage.setItem(key, JSON.stringif(currentData));
+  };
+
+
+  const removeStorage = (phoneNumber) => {
+    const contacts = getStorage('contacts');
+
+    for (let i = 0; i < contacts.length; i++) {
+      if (contacts[i].phone === phoneNumber) {
+        contacts.splice(i, 1);
+        break;
+      }
+    }
+
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  };
+
   const addContactData = (contact) => {
     data.push(contact);
+    localStorage.setItem('phone', JSON.stringify(data));
     console.log('data: ', data);
   };
 
@@ -339,4 +375,7 @@ const data = [
   };
 
   window.phoneBookInit = init;
+  window.addEventListener('storage', () => {
+    init();
+  });
 }
