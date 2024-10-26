@@ -296,14 +296,8 @@ import {getStorage,
     list.addEventListener('click', e => {
       const target = e.target;
       if (target.closest('.del-icon')) {
+        removeStorage(target.closest('.contact').querySelector('a').textContent);
         target.closest('.contact').remove();
-
-        const storagePhonebook = getStorage('phone');
-
-        for (let i = 0; i < storagePhonebook.length; i++) {
-          console.log(storagePhonebook[i].phone);
-          removeStorage(storagePhonebook.phone);
-        }
       }
     });
   };
